@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row text-center justify-content-start">
+    <div class="col-2">
+        <p class="text-capitalize lead">Internship company</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Internship role</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Internship description</p>
+    </div>
+    {% for internship in internships_list %}
+    <div class="col-2">
+        <p class="text lead">{{ internship.company.user.name }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ internship.role}}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ internship.description }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

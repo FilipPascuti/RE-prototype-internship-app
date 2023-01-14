@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row text-center justify-content-start">
+    <div class="col-2">
+        <p class="text-capitalize lead">Email</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Name</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Domain</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Description</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Phone</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">ContactPerson</p>
+    </div>
+    {% for company in companies_list %}
+    <div class="col-2">
+        <p class="text lead">{{ company.user.email }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ company.user.name }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ company.get_domain_type_label }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ company.user.description }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ company.user.phone }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ company.contact_person }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

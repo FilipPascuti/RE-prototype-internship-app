@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row text-center justify-content-start">
+    <div class="col-2">
+        <p class="text-capitalize lead">Email</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Name</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Domain of Interest</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Description</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Personal Projects</p>
+    </div>
+    <div class="col-2">
+        <p class="text-capitalize lead">Skills</p>
+    </div>
+    {% for student in students_list %}
+    <div class="col-2">
+        <p class="text lead">{{ student.user.email }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ student.user.name }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ student.get_domain_type_label }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ student.user.description }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ student.personal_projects }}</p>
+    </div>
+    <div class="col-2">
+        <p class="text lead">{{ student.skills }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

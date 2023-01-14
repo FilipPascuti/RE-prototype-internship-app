@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/details/main.css' %}">
+{% endblock stylesheet %}
+
+{% block head_title %}
+    Editare detalii companie
+{% endblock head_title %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    {% if user.is_authenticated and user.is_company %}
+        {% if user.email == form.email.value %}
+            <div class="container">
+                <h2 class="title-center">Editare Detalii Companie</h2>
+
+                <form class="form-container" method="post" action="">
+                    {% csrf_token %}
+
+                    <div class="profile-container company-banner">
+                        <div class="img-container">
+                            <h4>C</h4>
+                        </div>
+                    </div>
+
+                    <div class="details-container">
+                        <div class="field-group">
+                            <label class="details-title display-info">Email:</label>
+                            {% render_field form.email type="hidden" class="form-input" value=form.email.value %}
+                            <p class="details-content display-info">{{ form.email.value }}</p>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="details-title display-info">Nume</label>
+                            {% render_field form.name type="text" class="form-input" value=form.name.value %}
+                        </div>
+
+                        <div class="field-group">
+                            <label class="details-title display-info">Descriere</label>
+                            {% render_field form.description type="text" class="form-input form-textarea" value=form.description.value %}
+                        </div>
+
+                        <div class="field-group">
+                            <label class="details-title display-info">Domeniu</label>
+                            {% render_field form.domain class="form-input form-select" value=form.domain.value %}
+                        </div>
+
+                        <div class="field-group">
+                            <label class="details-title display-info">Locatie</label>
+                            {% render_field form.location class="form-input" value=form.location.value %}
+                        </div>
+
+                        <br>
+                        <p class="form-title">Date de contact</p>
+
+                        <div class="contact-group">
+                            <div class="field-group">
+                                <label class="details-title display-info">Persoană contact</label>
+                                {% render_field form.contact_person type="text" class="form-input" value=form.contact_person.value %}
+                            </div>
+
+                            <div class="field-group">
+                                <label class="details-title display-info">Telefon</label>
+                                {% render_field form.phone class="form-input" value=form.phone.value %}
+                            </div>
+                            <br>
+
+                            <input type="submit" name="submit" value="Save" class="submit-btn">
+                            <br>
+                        </div>
+
+                    </div>
+                </form>
+
+                <!-- background decorations -->
+
+            </div>
+        {% else %}
+            <p>Nu ai acces la aceasta pagina.</p>
+        {% endif %}
+    {% else %}
+        <p>Trebuie sa fii conectact ca si companie pentru a accesa aceasta pagina.</p>
+    {% endif %}
+{% endblock content %}

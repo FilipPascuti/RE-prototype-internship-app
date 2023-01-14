@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/details/main.css' %}">
+{% endblock stylesheet %}
+
+{% block head_title %}
+    Creare cont student
+{% endblock head_title %}
+
+{% block content %}
+    {% load widget_tweaks %}
+
+    <div class="container">
+        <h2 class="title-center">Creare Cont Student</h2>
+
+        <form class="form-container" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-container student-banner">
+                <div class="img-holder">
+                    <img class="profile-img" src="{% static 'users/login_register/profile_photo_dummy.png' %}" alt="">
+                </div>
+            </div>
+
+            <div class="details-container">
+
+                <div class="field-group">
+                    <p> * - câmpuri obligatorii </p>
+                    <label class="details-title display-info">Nume*</label>
+                    {% render_field form.name type="text" class="form-input" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Parolă*</label>
+                    {% render_field form.password type="password" class="form-input" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Confirmă parola*</label>
+                    {% render_field form.confirm_password type="password" class="form-input" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Descriere*</label>
+                    {% render_field form.description type="text" class="form-input form-textarea" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Skills*</label>
+                    {% render_field form.skills type="text" class="form-input form-textarea" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Limbi cunoscute</label>
+                    {% render_field form.foreign_languages type="text" class="form-input form-textarea" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Links portofolii</label>
+                    {% render_field form.personal_links type="text" class="form-input form-textarea" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Proiecte personale</label>
+                    {% render_field form.personal_projects type="text" class="form-input form-textarea" %}
+                </div>
+
+                <div class="field-group">
+                    <label class="details-title display-info">Domeniu de interes*</label>
+                    {% render_field form.domain_of_interest class="form-input form-select" %}
+                </div><br>
+
+                <div class="field-group button-wrap">
+                    {% render_field form.profile_photo|attr:"hidden"  id="upload-student-photo"  type="file" %}
+                    <label class ="upload-label" for="upload-student-photo"> Poză de profil</label>
+                    <span id="photo-chosen">No file chosen</span>
+                </div>
+                <br><br><br>
+                <div class="field-group button-wrap">
+                    {% render_field form.cv|attr:"hidden"  id="upload-student-cv"  type="file" %}
+                    <label class ="upload-label" for="upload-student-cv"> CV</label>
+                    <span id="cv-chosen">No file chosen</span>
+                </div>
+
+
+                <br>
+                <p class="form-title">Date de contact</p>
+
+                <div class="contact-group">
+
+                    <div class="field-group">
+                        <label class="details-title display-info">Email*</label>
+                        {% render_field form.email type="email" class="form-input" %}
+                    </div>
+
+                    <div class="field-group">
+                        <label class="details-title display-info">Telefon*</label>
+                        {% render_field form.phone type="text" class="form-input" %}
+                    </div>
+                    <br>
+
+                    <input type="submit" name="submit" value="Submit" class="submit-btn">
+                    <br>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- scripts -->
+        <script type="text/javascript">
+
+            const uploadPhotoBtn = document.getElementById('upload-student-photo');
+            const uploadCVBtn = document.getElementById('upload-student-cv');
+
+            const photoChosen = document.getElementById('photo-chosen');
+            const cvChosen = document.getElementById('cv-chosen');
+
+            uploadPhotoBtn.addEventListener('change', function(){
+                photoChosen.textContent = this.files[0].name;
+            })
+            uploadCVBtn.addEventListener('change', function(){
+                cvChosen.textContent = this.files[0].name;
+            })
+
+        </script>
+
+    </div>
+{% endblock content %}

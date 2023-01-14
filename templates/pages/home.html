@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/home/home.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="home-container d-flex align-items-center justify-content-center flex-column">
+
+        Welcome to Giobbo
+        {% if user.is_authenticated %}
+            {% if user.is_student %}
+                <h3>Student View</h3>
+                Hi, {{ user.name }}!!!
+                Skills: {{ user.student.skills }}
+                <p><a href="companies">See the available companies</a></p>
+            {% else %}
+                <h3>Company View</h3>
+                Hi, {{ user.name }}! {{ user.company.contact_person }}
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary m-2">
+                        <a href="students" class="link">Find your next employee</a>
+                    </button>
+
+                    <button type="button" class="btn btn-primary m-2">
+                        <a href="{% url 'edit-company' user.company.id %}" class="link">Edit company details</a>
+                    </button>
+                </div>
+                <p>sup sup</p>
+
+            {% endif %}
+            <p><a href="{% url 'logout' %}">Log Out</a></p>
+        {% else %}
+            <div class="d-flex">
+                <button type="button" class="btn btn-primary m-2">
+                    <a href="{% url 'login' %}" class="link">Log In</a>
+                </button>
+                <button type="button" class="btn btn-primary m-2">
+                    <a href="register/student" class="link">Register as a student</a>
+                </button>
+                <button type="button" class="btn btn-primary m-2">
+                    <a href="register/company" class="link">Register as a company</a>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

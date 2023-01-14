@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/details/main.css' %}">
+{% endblock stylesheet %}
+
+{% block head_title %}
+    Detalii companie
+{% endblock head_title %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="title-center">Detalii Companie</h2>
+        <div class="form-container">
+
+            <div class="profile-container company-banner">
+                <div class="img-container">
+                    <h4>C</h4>
+                </div>
+            </div>
+
+            <div class="details-container">
+                <div class="field-group">
+                    <p class="details-content display-info form-title big-name">{{ company.user.name }}</p>
+                </div>
+
+                <div class="field-group">
+                    <p class="details-content display-info"><b>Descriere: </b>{{ company.user.description }}</p>
+                </div>
+
+                <div class="field-group">
+                    <p class="details-title display-info">Domeniu:</p>
+                    <p class="details-content display-info">{{ company.get_domain_type_label|upper }}</p>
+                </div>
+
+                <div class="field-group">
+                    <p class="details-title display-info">Locatie:</p>
+                    <p class="details-content display-info">{{ company.location.name }}</p>
+                </div>
+
+                <p class="form-title">Date de contact</p>
+
+                <div class="contact-group">
+                    <div class="field-group">
+                        <p class="details-title display-info">Persoană contact:</p>
+                        <p class="details-content display-info">{{ company.contact_person }}</p>
+                    </div>
+
+                    <div class="field-group">
+                        <p class="details-title display-info">Email:</p>
+                        <p class="details-content display-info">{{ company.user.email }}</p>
+                    </div>
+
+                    <div class="field-group">
+                        <p class="details-title display-info">Telefon:</p>
+                        <p class="details-content display-info">{{ company.user.phone }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- background decorations -->
+
+    </div>
+{% endblock content %}

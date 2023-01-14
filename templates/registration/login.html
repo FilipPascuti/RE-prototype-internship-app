@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/details/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'users/login_register/login_register.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}{
+    <div class="container" id="login-container">
+
+        <div class="form-container-account sign-in-container">
+            <form method="post">
+                {% csrf_token %}
+                <h1>Conectare</h1>
+                <br>
+                <span>folosește contul de student/companie</span><br><br>
+                <label>Email:</label>
+                {{ form.username }}
+
+                <label>Parola:</label>
+                {{ form.password }}
+
+                <a href="#">Ai uitat parola?</a>
+                <button type="submit">Conectare</button>
+
+                {% if form.errors %}
+                    <p style="color: red">Email sau parola gresita</p>
+                {% endif %}
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay" id="overlay-box">
+            </div>
+        </div>
+    </div>
+{% endblock %}
