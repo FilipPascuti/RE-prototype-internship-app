@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/internship/main.css' %}">
+{% endblock stylesheet %}
+
+
 {% block content %}
-<div class="row text-center justify-content-start">
+<div class="container justify-content-start ">
     <div class="col-2">
         <p class="text-capitalize lead">Internship company</p>
     </div>

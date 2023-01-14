@@ -190,11 +190,16 @@ def internship_search_view(request, *args, **kwargs):
     flexible_hours = query_dict.get('flexible_hours') or True
     remote_possibility = query_dict.get('remote_possibility') or True
 
-    internships_list = Internship.objects\
-        .filter(Q(role_name__icontains=search_text) | Q(description__icontains=search_text))\
-        .filter(paid=paid)\
-        .filter(remote_possibility=remote_possibility)\
-        .filter(flexible_hours=flexible_hours)\
+    # internships_list = Internship.objects\
+    #     .filter(Q(role_name__icontains=search_text) | Q(description__icontains=search_text))\
+    #     .filter(paid=paid)\
+    #     .filter(remote_possibility=remote_possibility)\
+    #     .filter(flexible_hours=flexible_hours)\
+
+    internships_list = Internship.objects.all()
+
+    for internship in internships_list:
+        print(internship)
 
     context = {
         'internships_list': internships_list

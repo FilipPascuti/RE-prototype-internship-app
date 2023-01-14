@@ -6,18 +6,23 @@
 {% endblock stylesheet %}
 
 {% block content %}
-    <div class="home-container d-flex align-items-center justify-content-center flex-column">
+    <div class="container d-flex align-items-center justify-content-center flex-column">
 
         Welcome to Giobbo
         {% if user.is_authenticated %}
             {% if user.is_student %}
-                <h3>Student View</h3>
-                Hi, {{ user.name }}!!!
-                Skills: {{ user.student.skills }}
-                <p><a href="companies">See the available companies</a></p>
+                <p>Hi, {{ user.name }}!!!</p>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary m-2">
+                        <a href="companies" class="link">See the available companies</a>
+                    </button>
+
+                    <button type="button" class="btn btn-primary m-2">
+                        <a href="internships" class="link">See the available internships</a>
+                    </button>
+                </div>
             {% else %}
-                <h3>Company View</h3>
-                Hi, {{ user.name }}! {{ user.company.contact_person }}
+                <p>Hi, {{ user.name }}! {{ user.company.contact_person }}</p>
                 <div class="d-flex">
                     <button type="button" class="btn btn-primary m-2">
                         <a href="students" class="link">Find your next employee</a>
@@ -27,10 +32,11 @@
                         <a href="{% url 'edit-company' user.company.id %}" class="link">Edit company details</a>
                     </button>
                 </div>
-                <p>sup sup</p>
 
             {% endif %}
-            <p><a href="{% url 'logout' %}">Log Out</a></p>
+            <button type="button" class="btn btn-secondary m-2">
+                <a href="{% url 'logout' %}" class="link">Log Out</a>
+            </button>
         {% else %}
             <div class="d-flex">
                 <button type="button" class="btn btn-primary m-2">
