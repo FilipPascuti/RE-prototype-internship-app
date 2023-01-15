@@ -28,74 +28,56 @@
                 <div class="details-container">
                     <div class="field-group">
                         <label class="details-title display-info">Domain</label>
-                        {% render_field form.domain type="hidden" class="form-input" value=form.domain.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
+                        {% render_field form.domain class="form-input form-select" value=form.domain.value %}
                     </div>
                     <div class="field-group">
                         <label class="details-title display-info">Role Name</label>
-                        {% render_field form.role_name type="hidden" class="form-input" value=form.role_name.value %}
-{#                        <p class="details-content display-info">{{ form.role_name.value }}</p>#}
+                        {% render_field form.role_name type="text" class="form-input" value=form.role_name.value %}
                     </div>
                     <div class="field-group">
                         <label class="details-title display-info">Description</label>
-                        {% render_field form.description type="hidden" class="form-input" value=form.description.value %}
-{#                        <p class="details-content display-info">{{ form.description.value }}</p>#}
+                        {% render_field form.description type="text" class="form-input" value=form.description.value %}
                     </div>
-{#                    <div class="field-group">#}
-{#                        <label class="details-title display-info">Duration</label>#}
-{#                        {% render_field form.duration type="hidden" class="form-input" value=form.duration.value %}#}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
-{#                    </div>#}
-
                     <div class="field-group">
-                        <label class="details-title display-info">Active</label>
-                        {% render_field form.active type="hidden" class="form-input" value=form.active.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
+                        <label class="details-title display-info">Duration</label>
+                        {% render_field form.duration type="text" class="form-input" value=form.duration.value %}
                     </div>
 
                      <div class="field-group">
                         <label class="details-title display-info">Flexible Hours?</label>
-                        {% render_field form.flexible_hours type="hidden" class="form-input" value=form.flexible_hours.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
+                        {% render_field form.flexible_hours class="form-input" %}
                     </div>
 
                     <div class="field-group">
                         <label class="details-title display-info">Is remote possible?</label>
-                        {% render_field form.remote_possibility type="hidden" class="form-input" value=form.remote_possibility.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
+                        {% render_field form.remote_possibility class="form-input" %}
                     </div>
-{##}
-{#                    <div class="field-group">#}
-{#                        <label class="details-title display-info">Date Expiration</label>#}
-{#                        {% render_field form.date_expiration type="hidden" class="form-input" value=form.date_expiration.value %}#}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
-{#                    </div>#}
+
+                    <div class="field-group">
+                        <label class="details-title display-info">Date Expiration</label>
+                        {% render_field form.date_expiration class="form-input" value=form.date_expiration.value %}
+                    </div>
 
                     <div class="field-group">
                         <label class="details-title display-info">Is letter of intent needed?</label>
-                        {% render_field form.letter_of_intent_needed type="hidden" class="form-input" value=form.letter_of_intent_needed.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
+                        {% render_field form.letter_of_intent_needed class="form-input" %}
                     </div>
 
-                    <div class="field-group">
-                        <label class="details-title display-info">Date Posted</label>
-                        {% render_field form.date_posted type="hidden" class="form-input" value=form.date_posted.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
-                    </div>
 
                     <div class="field-group">
                         <label class="details-title display-info">Work Type</label>
-                        {% render_field form.type type="hidden" class="form-input" value=form.type.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
+                        {% render_field form.type class="form-input form-select" value=form.type.value %}
                     </div>
 
                     <div class="field-group">
                         <label class="details-title display-info">Salary</label>
-                        {% render_field form.salary type="hidden" class="form-input" value=form.salary.value %}
-{#                        <p class="details-content display-info">{{ form.duration.value }}</p>#}
+                        {% render_field form.salary class="form-input" value=form.salary.value %}
                     </div>
 
-
+                    <div class="field-group">
+                        <label class="details-title display-info">Locatie</label>
+                        {% render_field form.location class="form-input" value=form.location.value %}
+                    </div>
 
                     <input type="submit" name="submit" value="Save" class="submit-btn">
                     <br>

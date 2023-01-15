@@ -62,20 +62,18 @@ class CompanyEditForm(forms.Form):
     domain = forms.ChoiceField(widget=forms.Select(), choices=DomainTypes.choices())
     location = forms.CharField(max_length=50)
 
+
 class CompanyAddInternshipForm(forms.Form):
-    description = forms.CharField(required=True, widget=forms.Textarea(attrs={"rows": 8, "cols": 80}))
-    role_name = forms.CharField(required=True, widget=forms.Textarea(attrs={"rows": 1, "cols": 80}))
+    description = forms.CharField(widget=forms.Textarea(attrs={"rows": 8, "cols": 80}))
+    role_name = forms.CharField(widget=forms.Textarea(attrs={"rows": 1, "cols": 80}))
     duration = forms.CharField(widget=forms.Textarea(attrs={"rows": 1, "cols": 80}))
-    active = forms.BooleanField(required=True)
-    # date_posted = forms.DateTimeField(required=False, widget=forms.DateTimeInput())
-    # date_expiration = forms.DateTimeField(required=False, widget=forms.DateTimeInput())
-    letter_of_intent_needed = forms.BooleanField(required=False)
-    flexible_hours = forms.BooleanField(required=False)
-    remote_possibility = forms.BooleanField(required=False)
-    salary = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'min': '0'}))
-    paid = forms.BooleanField(required=False)
-    domain = forms.ChoiceField(required=False, widget=forms.Select(), choices=DomainTypes.choices())
-    type = forms.ChoiceField(required=False, widget=forms.Select(), choices=WorkTypes.choices())
+    date_expiration = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date'}))
+    letter_of_intent_needed = forms.BooleanField(required=False, widget=forms.CheckboxInput())
+    flexible_hours = forms.BooleanField(required=False, widget=forms.CheckboxInput())
+    remote_possibility = forms.BooleanField(required=False, widget=forms.CheckboxInput())
+    salary = forms.IntegerField(widget=forms.NumberInput(attrs={'min': '0'}))
+    domain = forms.ChoiceField(widget=forms.Select(), choices=DomainTypes.choices())
+    type = forms.ChoiceField(widget=forms.Select(), choices=WorkTypes.choices())
     location = forms.CharField(max_length=50)
 
 
