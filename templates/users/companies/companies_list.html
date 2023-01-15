@@ -1,44 +1,43 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/home/home.css' %}">
+{% endblock stylesheet %}
+
 {% block content %}
-<div class="row text-center justify-content-start">
-    <div class="col-2">
-        <p class="text-capitalize lead">Email</p>
+    <div class="container d-flex justify-content-center align-items-center flex-column">
+
+        <button type="button" class="btn btn-primary m-2" style="float: right">
+            <a href="{% url 'home' %}" class="link">Go back home</a>
+        </button>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Description</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Contact Person</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for company in companies_list %}
+
+                <tr>
+                    <td>{{ company.user.email }}</td>
+                    <td>{{ student.user.name }}</td>
+                    <td>{{ company.get_domain_type_label }}</td>
+                    <td>{{ company.user.description }}</td>
+                    <td>{{ company.user.phone }}</td>
+                    <td>{{ company.contact_person }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Name</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Domain</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Description</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Phone</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">ContactPerson</p>
-    </div>
-    {% for company in companies_list %}
-    <div class="col-2">
-        <p class="text lead">{{ company.user.email }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ company.user.name }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ company.get_domain_type_label }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ company.user.description }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ company.user.phone }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ company.contact_person }}</p>
-    </div>
-    {% endfor %}
-</div>
 {% endblock content %}

@@ -194,60 +194,12 @@ def company_add_internship(request, company_id, *args, **kwargs):
     return render(request, "pages/internship/add_internship.html", context=context, status=200)
 
 
-# def student_edit_view(request, student_id, *args, **kwargs):
-#     try:
-#         student = Student.objects.get(id=student_id)
-#         user = User.objects.get(email=student.user)
-#         location = Location.objects.get(id=student.location.id)
-#     except:
-#         raise Http404
-#     if request.method == 'POST':
-#         form = CompanyEditForm(request.POST)
-#         if form.is_valid():
-#             company.contact_person = form.cleaned_data['contact_person']
-#             company.domain = form.cleaned_data['domain']
-#             company.user.name = form.cleaned_data['name']
-#             company.user.phone = form.cleaned_data['phone']
-#             company.user.description = form.cleaned_data['description']
-#
-#             if form.cleaned_data['location'] != company.location.name:  # new location given
-#                 new_location, created = Location.objects.get_or_create(name=form.cleaned_data['location'])
-#                 if created:
-#                     new_location.save()
-#                 company.location = new_location
-#
-#             company.save()
-#             company.user.save()
-#             return redirect("/")
-#         if form.is_valid():
-#             doc = request.FILES
-#             domain_of_interest = form.cleaned_data['domain_of_interest']
-#             skills = form.cleaned_data['skills']
-#             personal_projects = form.cleaned_data['personal_projects']
-#             foreign_languages = form.cleaned_data['foreign_languages']
-#             personal_links = form.cleaned_data['personal_links']
-#             profile_photo, cv = None, None
-#             if doc:
-#                 profile_photo = doc['profile_photo']
-#                 cv = doc['cv']
-#             student = Student(user=user_instance, domain_of_interest=domain_of_interest, skills=skills,
-#                               personal_projects=personal_projects, foreign_languages=foreign_languages,
-#                               personal_links=personal_links, profile_photo=profile_photo, cv=cv)
-#             student.save()
-#             return redirect("/")
-#     else:
-#         company_dict = company_to_dictionary(company)
-#         form = CompanyEditForm(initial=company_dict)
-#     context = {'form': form}
-#     return render(request, "pages/details/company_update_details.html", context=context)
-
-
 def internship_search_view(request, *args, **kwargs):
-    query_dict = request.GET
-    search_text = ''
-    paid = query_dict.get('paid') or True
-    flexible_hours = query_dict.get('flexible_hours') or True
-    remote_possibility = query_dict.get('remote_possibility') or True
+    # query_dict = request.GET
+    # search_text = ''
+    # paid = query_dict.get('paid') or True
+    # flexible_hours = query_dict.get('flexible_hours') or True
+    # remote_possibility = query_dict.get('remote_possibility') or True
 
     # internships_list = Internship.objects\
     #     .filter(Q(role_name__icontains=search_text) | Q(description__icontains=search_text))\
