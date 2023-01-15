@@ -30,7 +30,7 @@ urlpatterns = [
     path('register/student', views.register_student),
     path('register/company', views.register_company),
 
-    path('', views.home_view),
+    path('', views.home_view, name="home"),
     path('companies/', views.companies_list_view),
     path('companies/<int:company_id>', views.company_detail_view),
     path('companies/edit/<int:company_id>', views.company_edit_view, name="edit-company"),

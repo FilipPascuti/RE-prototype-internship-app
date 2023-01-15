@@ -13,29 +13,38 @@
     {% load widget_tweaks %}
     {% if user.is_authenticated and user.is_company %}
         {% if user == company.user %}
-            <div class="container">
+            <div class="container d-flex justify-content-center align-items-center flex-column">
 
                 <div class="d-flex">
                     <button type="button" class="btn btn-primary m-2" style="float: right">
                         <a href="{% url 'add-internship' user.company.id %}" class="link">Adauga internship</a>
                     </button>
+                    <button type="button" class="btn btn-primary m-2" style="float: right">
+                        <a href="{% url 'home' %}" class="link">Go back</a>
+                    </button>
                 </div>
-            <h2 class="title-center">Lista Internship</h2>
-            </div>
-            <div class="">
+                <h2 class="title-center">Lista Internship</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Role</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date posted</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for internship in company_internship_list %}
+                        <tr>
+                            <td>{{ internship.role_name }}</td>
+                            <td>{{ internship.description }}</td>
+                            <td>{{ internship.date_posted }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
             </div>
-            {% for internship in company_internship_list %}
-            <div class="row-1">
-                <p class="text lead">{{ internship.role_name }}</p>
-            </div>
-            <div class="row-2">
-                <p class="text lead">{{ internship.description }}</p>
-            </div>
-            <div class="row-2">
-                <p class="text lead">{{ internship.company }}</p>
-            </div>
-            {% endfor %}
         {% else %}
             <p>Nu ai acces la aceasta pagina.</p>
         {% endif %}

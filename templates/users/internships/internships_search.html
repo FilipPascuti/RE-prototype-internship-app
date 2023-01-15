@@ -2,31 +2,37 @@
 
 {% block stylesheet %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'users/internship/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'users/home/home.css' %}">
 {% endblock stylesheet %}
 
-
 {% block content %}
-<div class="container justify-content-start ">
-    <div class="col-2">
-        <p class="text-capitalize lead">Internship company</p>
+    <div class="container d-flex justify-content-center align-items-center flex-column">
+
+        <div class="d-flex">
+            <button type="button" class="btn btn-primary m-2" style="float: right">
+                <a href="{% url 'home' %}" class="link">Go back</a>
+            </button>
+        </div>
+        <h2 class="title-center">Lista Internship</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Role</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date posted</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for internship in internships_list %}
+                <tr>
+                    <td>{{ internship.role_name }}</td>
+                    <td>{{ internship.description }}</td>
+                    <td>{{ internship.date_posted }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Internship role</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Internship description</p>
-    </div>
-    {% for internship in internships_list %}
-    <div class="col-2">
-        <p class="text lead">{{ internship.company.user.name }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ internship.role}}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ internship.description }}</p>
-    </div>
-    {% endfor %}
-</div>
 {% endblock content %}

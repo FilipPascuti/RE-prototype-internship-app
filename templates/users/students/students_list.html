@@ -1,44 +1,42 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/home/home.css' %}">
+{% endblock stylesheet %}
+
 {% block content %}
-<div class="row text-center justify-content-start">
-    <div class="col-2">
-        <p class="text-capitalize lead">Email</p>
+    <div class="container d-flex justify-content-center align-items-center flex-column">
+
+        <button type="button" class="btn btn-primary m-2" style="float: right">
+            <a href="{% url 'home' %}" class="link">Go back home</a>
+        </button>
+        
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Domain of Interest</th>
+                <th scope="col">Description</th>
+                <th scope="col">Personal Projects</th>
+                <th scope="col">Skills</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for student in students_list %}
+                <tr>
+                    <td>{{ student.user.email }}</td>
+                    <td>{{ student.user.name }}</td>
+                    <td>{{ student.get_domain_type_label }}</td>
+                    <td>{{ student.user.description }}</td>
+                    <td>{{ student.personal_projects }}</td>
+                    <td>{{ student.skills }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Name</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Domain of Interest</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Description</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Personal Projects</p>
-    </div>
-    <div class="col-2">
-        <p class="text-capitalize lead">Skills</p>
-    </div>
-    {% for student in students_list %}
-    <div class="col-2">
-        <p class="text lead">{{ student.user.email }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ student.user.name }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ student.get_domain_type_label }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ student.user.description }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ student.personal_projects }}</p>
-    </div>
-    <div class="col-2">
-        <p class="text lead">{{ student.skills }}</p>
-    </div>
-    {% endfor %}
-</div>
 {% endblock content %}

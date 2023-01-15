@@ -142,6 +142,9 @@ def company_manage_internships(request, company_id, *args, **kwargs):
     except:
         raise Http404
     company_internship_list = Internship.objects.all().filter(company=company)
+    for item in company_internship_list:
+        print(item.__dict__)
+
     context = {
         'company_internship_list': company_internship_list,
         'company': company
@@ -176,7 +179,7 @@ def company_add_internship(request, company_id, *args, **kwargs):
             internship = Internship(role_name=role_name, description=description, domain=domain,
                                     type=type, flexible_hours=flexible_hours, remote_possibility=remote_possibility,
                                     letter_of_intent_needed=letter_of_intent_needed, date_expiration=date_expiration,
-                                    salary=salary, location=new_location)
+                                    salary=salary, location=new_location, active=True)
             internship.company = company
             internship.save()
             print(Internship.objects.all())
