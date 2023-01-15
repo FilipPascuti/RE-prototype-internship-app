@@ -61,13 +61,13 @@ class Internship(models.Model):
     active = models.BooleanField(default=False)
     role_name = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
-    date_posted = models.DateTimeField(default=now)
-    date_expiration = models.DateTimeField()
+    # date_posted = models.DateTimeField(default=now)
+    # date_expiration = models.DateTimeField()
     letter_of_intent_needed = models.BooleanField(default=False)
     flexible_hours = models.BooleanField(default=False)
     remote_possibility = models.BooleanField(default=False)
     duration = models.CharField(max_length=50)
-    salary = models.FloatField()
+    salary = models.IntegerField()
     paid = models.BooleanField(default=True)
 
     domain = models.IntegerField(choices=DomainTypes.choices(), default=DomainTypes.IT)
@@ -78,6 +78,9 @@ class Internship(models.Model):
 
     def get_domain_type_label(self):
         return DomainTypes(self.domain).name.title()
+
+    def __str__(self):
+        return self.company.user.name
 
 
 class Application(models.Model):

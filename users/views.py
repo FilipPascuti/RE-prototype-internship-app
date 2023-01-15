@@ -1,7 +1,9 @@
+import logging
+
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 
-from .forms import StudentSignUpForm, CompanySignUpForm, CompanyEditForm
+from .forms import StudentSignUpForm, CompanySignUpForm, CompanyEditForm, CompanyAddInternshipForm
 from .models import Company, Student, User, Location, Internship
 from django.forms.models import model_to_dict
 from django.db.models import Q
@@ -133,7 +135,63 @@ def company_edit_view(request, company_id, *args, **kwargs):
     context = {'form': form}
     return render(request, "pages/details/company_update_details.html", context=context)
 
+def company_manage_internships(request, company_id, *args, **kwargs):
+    try:
+        company = Company.objects.get(id=company_id)
+    except:
+        raise Http404
+    company_internship_list = Internship.objects.all().filter(company=company)
+    context = {
+        'company_internship_list' : company_internship_list,
+        'company' : company
+    }
+    return render(request, "pages/company/internship_dashboard.html", context, status=200)
 
+def company_add_internship(request, company_id, *args, **kwargs):
+    try:
+        company = Company.objects.get(id=company_id)
+    except:
+        raise Http404
+
+    if request.method == 'POST':
+        print('got here')
+        form = CompanyAddInternshipForm(request.POST)
+        print("2")
+        if form.is_valid():
+            print("3243")
+        # internship_instance = form.save(commit=False)
+            role_name = form.cleaned_data['role_name']
+            description = form.cleaned_data['description']
+            active = form.cleaned_data['active']
+            domain = form.cleaned_data['domain']
+            # date_expiration = form.cleaned_data['date_expiration']
+            # date_posted = form.cleaned_data['date_posted']
+            type = form.cleaned_data['type']
+            remote_possibility = form.cleaned_data['remote_possibility']
+            flexible_hours = form.cleaned_data['flexible_hours']
+            letter_of_intent_needed = form.cleaned_data['letter_of_intent_needed']
+            # salary = form.cleaned_data['salary']
+            # location_name = form.cleaned_data['location']
+            #
+            # new_location, created = Location.objects.get_or_create(name=location_name)
+            # if created:
+            #     new_location.save()
+            # internship_instance.save()
+            internship = Internship(role_name=role_name, description=description, active=active, domain=domain,
+                                    type=type, flexible_hours=flexible_hours, remote_possibility=remote_possibility,
+                                    letter_of_intent_needed=letter_of_intent_needed)
+            internship.company = company
+            internship.save()
+            print(Internship.objects.all())
+            return redirect("/companies/manage/" + company_id)
+    else:
+        form = CompanyAddInternshipForm()
+
+    context = {
+        'form': form,
+        'company' : company
+    }
+    return render(request, "pages/internship/add_internship.html", context, status=200)
 # def student_edit_view(request, student_id, *args, **kwargs):
 #     try:
 #         student = Student.objects.get(id=student_id)
@@ -200,3 +258,5 @@ def internship_search_view(request, *args, **kwargs):
         'internships_list': internships_list
     }
     return render(request, "users/internships/internships_search.html", context, status=200)
+
+

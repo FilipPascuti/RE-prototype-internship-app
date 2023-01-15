@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/home/home.css' %}">
+{% endblock stylesheet %}
+
+{% block head_title %}
+    Internship urile companiei
+{% endblock head_title %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    {% if user.is_authenticated and user.is_company %}
+        {% if user == company.user %}
+            <div class="container">
+
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary m-2" style="float: right">
+                        <a href="{% url 'add-internship' user.company.id %}" class="link">Adauga internship</a>
+                    </button>
+                </div>
+            <h2 class="title-center">Lista Internship</h2>
+            </div>
+            <div class="">
+
+            </div>
+            {% for internship in company_internship_list %}
+            <div class="row-1">
+                <p class="text lead">{{ internship.role_name }}</p>
+            </div>
+            <div class="row-2">
+                <p class="text lead">{{ internship.description }}</p>
+            </div>
+            <div class="row-2">
+                <p class="text lead">{{ internship.company }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Nu ai acces la aceasta pagina.</p>
+        {% endif %}
+    {% else %}
+        <p>Trebuie sa fii conectact ca si companie pentru a accesa aceasta pagina.</p>
+    {% endif %}
+{% endblock content %}

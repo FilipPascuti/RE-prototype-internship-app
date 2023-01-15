@@ -24,6 +24,10 @@
                     </button>
 
                     <button type="button" class="btn btn-primary m-2">
+                        <a href="{% url 'manage-company' user.company.id %}" class="link">Manage company internships</a>
+                    </button>
+
+                    <button type="button" class="btn btn-primary m-2">
                         <a href="{% url 'edit-company' user.company.id %}" class="link">Edit company details</a>
                     </button>
                 </div>

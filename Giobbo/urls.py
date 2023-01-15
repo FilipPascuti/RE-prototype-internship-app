@@ -34,10 +34,13 @@ urlpatterns = [
     path('companies/', views.companies_list_view),
     path('companies/<int:company_id>', views.company_detail_view),
     path('companies/edit/<int:company_id>', views.company_edit_view, name="edit-company"),
+    path('companies/manage/<int:company_id>', views.company_manage_internships, name="manage-company"),
+    path('companies/add/<int:company_id>', views.company_add_internship, name="add-internship"),
 
     path('students/', views.students_list_view),
 
     path('internships', views.internship_search_view)
+
 ]
 
 if settings.DEBUG:
