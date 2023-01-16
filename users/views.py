@@ -193,15 +193,15 @@ def company_update_internship(request, company_id, internship_id, *args, **kwarg
             salary = form.cleaned_data['salary']
             location_name = form.cleaned_data['location']
 
-            new_location, created = Location.objects.get_or_create(name=location_name)
-            if created:
-                new_location.save()
-            internship = Internship(role_name=role_name, description=description, domain=domain,
+            if form.cleaned_data['location'] != company.location.name:  # new location given
+                new_location, created = Location.objects.get_or_create(name=form.cleaned_data['location'])
+                if created:
+                    new_location.save()
+
+            Internship.objects.filter(id=internship_id).update(role_name=role_name, description=description, domain=domain,
                                     type=type, flexible_hours=flexible_hours, remote_possibility=remote_possibility,
                                     letter_of_intent_needed=letter_of_intent_needed, date_expiration=date_expiration,
-                                    salary=salary, location=new_location, active=True)
-            internship.company = company
-            internship.save()
+                                    salary=salary, location=new_location, active=True, company=company)
             return redirect("/companies/manage/{}".format(str(company_id)))
     else:
         internship_dict = internship_to_dict(internship)
