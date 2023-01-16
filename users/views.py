@@ -256,19 +256,7 @@ def company_add_internship(request, company_id, *args, **kwargs):
     return render(request, "pages/internship/add_internship.html", context=context, status=200)
 
 
-def internship_search_view(request, *args, **kwargs):
-    # query_dict = request.GET
-    # search_text = ''
-    # paid = query_dict.get('paid') or True
-    # flexible_hours = query_dict.get('flexible_hours') or True
-    # remote_possibility = query_dict.get('remote_possibility') or True
-
-    # internships_list = Internship.objects\
-    #     .filter(Q(role_name__icontains=search_text) | Q(description__icontains=search_text))\
-    #     .filter(paid=paid)\
-    #     .filter(remote_possibility=remote_possibility)\
-    #     .filter(flexible_hours=flexible_hours)\
-
+def internship_search_view(request, student_id, *args, **kwargs):
     student = Student.objects.get(id=student_id)
 
     internships_list = Internship.objects.all()
@@ -304,13 +292,6 @@ def apply_to_internship(request, internship_id, student_id, *args, **kwargs):
 def company_see_applicants(request, company_id, *args, **kwargs):
 
     company = Company.objects.get(id=company_id)
-
-    # internship_ids = set()
-    #
-    # for internship in Internship.objects.filter(company=company):
-    #      internship_ids.add(internship.id)
-    #
-    # print(internship_ids)
 
     internships = Internship.objects.filter(company=company)
 
