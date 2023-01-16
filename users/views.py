@@ -159,19 +159,29 @@ def company_delete_internship(request, company_id, internship_id, *args, **kwarg
 
     Internship.objects.filter(id=internship_id).delete()
     return redirect("/companies/manage/{}".format(str(company_id)))
-def company_update_internship(request, company_id, internship_id, *args, **kwargs):
-    return None
 
-def company_add_internship(request, company_id, *args, **kwargs):
+
+def internship_to_dict(internship):
+    internship_dict = model_to_dict(internship, fields=["active,"
+                                                        "role_name",
+                                                        "description", "date_posted", "date_expiration",
+                                                        "letter_of_intent_needed", "flexible_hours",
+                                                        "remote_possibility", "duration",
+                                                        "salary", "paid", "domain", "type"])
+
+
+    return internship_dict
+
+
+def company_update_internship(request, company_id, internship_id, *args, **kwargs):
     try:
         company = Company.objects.get(id=company_id)
+        internship = Internship.objects.get(id=internship_id)
     except:
         raise Http404
-
     if request.method == 'POST':
         form = CompanyAddInternshipForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
             role_name = form.cleaned_data['role_name']
             description = form.cleaned_data['description']
             domain = form.cleaned_data['domain']
@@ -192,7 +202,46 @@ def company_add_internship(request, company_id, *args, **kwargs):
                                     salary=salary, location=new_location, active=True)
             internship.company = company
             internship.save()
-            print(Internship.objects.all())
+            return redirect("/companies/manage/{}".format(str(company_id)))
+    else:
+        internship_dict = internship_to_dict(internship)
+        form = CompanyAddInternshipForm(initial=internship_dict)
+
+    context = {
+        'form': form,
+        'company': company
+    }
+    return render(request, "pages/internship/add_internship.html", context=context, status=200)
+
+def company_add_internship(request, company_id, *args, **kwargs):
+    try:
+        company = Company.objects.get(id=company_id)
+    except:
+        raise Http404
+
+    if request.method == 'POST':
+        form = CompanyAddInternshipForm(request.POST)
+        if form.is_valid():
+            role_name = form.cleaned_data['role_name']
+            description = form.cleaned_data['description']
+            domain = form.cleaned_data['domain']
+            date_expiration = form.cleaned_data['date_expiration']
+            type = form.cleaned_data['type']
+            remote_possibility = form.cleaned_data['remote_possibility']
+            flexible_hours = form.cleaned_data['flexible_hours']
+            letter_of_intent_needed = form.cleaned_data['letter_of_intent_needed']
+            salary = form.cleaned_data['salary']
+            location_name = form.cleaned_data['location']
+
+            new_location, created = Location.objects.get_or_create(name=location_name)
+            if created:
+                new_location.save()
+            internship = Internship(role_name=role_name, description=description, domain=domain,
+                                    type=type, flexible_hours=flexible_hours, remote_possibility=remote_possibility,
+                                    letter_of_intent_needed=letter_of_intent_needed, date_expiration=date_expiration,
+                                    salary=salary, location=new_location, active=True)
+            internship.company = company
+            internship.save()
             return redirect("/companies/manage/{}".format(str(company_id)))
     else:
         form = CompanyAddInternshipForm()
