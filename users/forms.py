@@ -70,6 +70,7 @@ class CompanyAddInternshipForm(forms.Form):
     date_expiration = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date'}))
     letter_of_intent_needed = forms.BooleanField(required=False, widget=forms.CheckboxInput())
     flexible_hours = forms.BooleanField(required=False, widget=forms.CheckboxInput())
+    active = forms.BooleanField(required=False, widget=forms.CheckboxInput())
     remote_possibility = forms.BooleanField(required=False, widget=forms.CheckboxInput())
     salary = forms.IntegerField(widget=forms.NumberInput(attrs={'min': '0'}))
     domain = forms.ChoiceField(widget=forms.Select(), choices=DomainTypes.choices())

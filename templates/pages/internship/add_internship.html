@@ -54,6 +54,11 @@
                     </div>
 
                     <div class="field-group">
+                        <label class="details-title display-info">Is it active?</label>
+                        {% render_field form.active class="form-input" %}
+                    </div>
+
+                    <div class="field-group">
                         <label class="details-title display-info">Date Expiration</label>
                         {% render_field form.date_expiration class="form-input" value=form.date_expiration.value %}
                     </div>

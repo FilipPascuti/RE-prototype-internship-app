@@ -191,6 +191,7 @@ def company_update_internship(request, company_id, internship_id, *args, **kwarg
             flexible_hours = form.cleaned_data['flexible_hours']
             letter_of_intent_needed = form.cleaned_data['letter_of_intent_needed']
             salary = form.cleaned_data['salary']
+            active = form.cleaned_data['active']
             location_name = form.cleaned_data['location']
 
             if form.cleaned_data['location'] != company.location.name:  # new location given
@@ -201,7 +202,7 @@ def company_update_internship(request, company_id, internship_id, *args, **kwarg
             Internship.objects.filter(id=internship_id).update(role_name=role_name, description=description, domain=domain,
                                     type=type, flexible_hours=flexible_hours, remote_possibility=remote_possibility,
                                     letter_of_intent_needed=letter_of_intent_needed, date_expiration=date_expiration,
-                                    salary=salary, location=new_location, active=True, company=company)
+                                    salary=salary, location=new_location, active=active, company=company)
             return redirect("/companies/manage/{}".format(str(company_id)))
     else:
         internship_dict = internship_to_dict(internship)
