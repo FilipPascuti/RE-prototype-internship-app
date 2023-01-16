@@ -151,6 +151,16 @@ def company_manage_internships(request, company_id, *args, **kwargs):
     }
     return render(request, "pages/company/internship_dashboard.html", context, status=200)
 
+def company_delete_internship(request, company_id, internship_id, *args, **kwargs):
+    try:
+        internship = Internship.objects.get(id=internship_id)
+    except:
+        raise Http404
+
+    Internship.objects.filter(id=internship_id).delete()
+    return redirect("/companies/manage/{}".format(str(company_id)))
+def company_update_internship(request, company_id, internship_id, *args, **kwargs):
+    return None
 
 def company_add_internship(request, company_id, *args, **kwargs):
     try:

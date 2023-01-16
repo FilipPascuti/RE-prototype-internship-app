@@ -30,6 +30,8 @@
                         <th scope="col">Role</th>
                         <th scope="col">Description</th>
                         <th scope="col">Date posted</th>
+                        <th/>
+                        <th/>
                     </tr>
                     </thead>
 
@@ -39,6 +41,16 @@
                             <td>{{ internship.role_name }}</td>
                             <td>{{ internship.description }}</td>
                             <td>{{ internship.date_posted }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary m-2" style="float: right">
+                                    <a href="{% url 'delete-internship' user.company.id internship.id %}" class="link">Sterge</a>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary m-2" style="float: right">
+                                    <a href="{% url 'update-internship' user.company.id internship.id %}" class="link">Editeaza</a>
+                                </button>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
