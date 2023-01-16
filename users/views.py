@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 
 from .forms import StudentSignUpForm, CompanySignUpForm, CompanyEditForm, CompanyAddInternshipForm
-from .models import Company, Student, User, Location, Internship
+from .models import Company, Student, User, Location, Internship, Application, ApplicationStatus
 from django.forms.models import model_to_dict
 from django.db.models import Q
 
@@ -142,14 +142,13 @@ def company_manage_internships(request, company_id, *args, **kwargs):
     except:
         raise Http404
     company_internship_list = Internship.objects.all().filter(company=company)
-    for item in company_internship_list:
-        print(item.__dict__)
 
     context = {
         'company_internship_list': company_internship_list,
         'company': company
     }
     return render(request, "pages/company/internship_dashboard.html", context, status=200)
+
 
 def company_delete_internship(request, company_id, internship_id, *args, **kwargs):
     try:
@@ -168,7 +167,6 @@ def internship_to_dict(internship):
                                                         "letter_of_intent_needed", "flexible_hours",
                                                         "remote_possibility", "duration",
                                                         "salary", "paid", "domain", "type"])
-
 
     return internship_dict
 
@@ -191,7 +189,6 @@ def company_update_internship(request, company_id, internship_id, *args, **kwarg
             flexible_hours = form.cleaned_data['flexible_hours']
             letter_of_intent_needed = form.cleaned_data['letter_of_intent_needed']
             salary = form.cleaned_data['salary']
-            active = form.cleaned_data['active']
             location_name = form.cleaned_data['location']
 
             if form.cleaned_data['location'] != company.location.name:  # new location given
@@ -199,10 +196,14 @@ def company_update_internship(request, company_id, internship_id, *args, **kwarg
                 if created:
                     new_location.save()
 
-            Internship.objects.filter(id=internship_id).update(role_name=role_name, description=description, domain=domain,
-                                    type=type, flexible_hours=flexible_hours, remote_possibility=remote_possibility,
-                                    letter_of_intent_needed=letter_of_intent_needed, date_expiration=date_expiration,
-                                    salary=salary, location=new_location, active=active, company=company)
+            Internship.objects.filter(id=internship_id).update(role_name=role_name, description=description,
+                                                               domain=domain,
+                                                               type=type, flexible_hours=flexible_hours,
+                                                               remote_possibility=remote_possibility,
+                                                               letter_of_intent_needed=letter_of_intent_needed,
+                                                               date_expiration=date_expiration,
+                                                               salary=salary, location=new_location, active=True,
+                                                               company=company)
             return redirect("/companies/manage/{}".format(str(company_id)))
     else:
         internship_dict = internship_to_dict(internship)
@@ -213,6 +214,7 @@ def company_update_internship(request, company_id, internship_id, *args, **kwarg
         'company': company
     }
     return render(request, "pages/internship/add_internship.html", context=context, status=200)
+
 
 def company_add_internship(request, company_id, *args, **kwargs):
     try:
@@ -267,12 +269,57 @@ def internship_search_view(request, *args, **kwargs):
     #     .filter(remote_possibility=remote_possibility)\
     #     .filter(flexible_hours=flexible_hours)\
 
+    student = Student.objects.get(id=student_id)
+
     internships_list = Internship.objects.all()
 
+    internships_applied = set()
+    for application in Application.objects.filter(student=student):
+        internships_applied.add(application.internship)
+
+    internships = []
+
     for internship in internships_list:
-        print(internship)
+        if internship in internships_applied:
+            internships.append([internship, True])
+        else:
+            internships.append([internship, False])
 
     context = {
-        'internships_list': internships_list
+        'internships_list': internships
     }
     return render(request, "users/internships/internships_search.html", context, status=200)
+
+
+def apply_to_internship(request, internship_id, student_id, *args, **kwargs):
+    internship = Internship.objects.get(id=internship_id)
+    student = Student.objects.get(id=student_id)
+
+    application = Application(internship=internship, student=student, status=ApplicationStatus.choices()[0][0])
+    application.save()
+
+    return redirect("/internships/{}".format(str(student_id)))
+
+
+def company_see_applicants(request, company_id, *args, **kwargs):
+
+    company = Company.objects.get(id=company_id)
+
+    # internship_ids = set()
+    #
+    # for internship in Internship.objects.filter(company=company):
+    #      internship_ids.add(internship.id)
+    #
+    # print(internship_ids)
+
+    internships = Internship.objects.filter(company=company)
+
+    applications = Application.objects.filter(internship__in=internships)
+
+    print(applications)
+
+    context = {
+        'applications': applications
+    }
+
+    return render(request, "pages/company/see_aplicants.html", context=context, status=200)

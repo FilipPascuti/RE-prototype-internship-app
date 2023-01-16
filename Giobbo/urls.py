@@ -38,10 +38,12 @@ urlpatterns = [
     path('companies/add/<int:company_id>', views.company_add_internship, name="add-internship"),
     path('companies/delete/<int:company_id>/<int:internship_id>', views.company_delete_internship, name="delete-internship"),
     path('companies/update/<int:company_id>/<int:internship_id>', views.company_update_internship, name="update-internship"),
+    path('companies/aplicants/<int:company_id>', views.company_see_applicants, name='company-applicants'),
 
     path('students/', views.students_list_view),
 
-    path('internships', views.internship_search_view)
+    path('internships/<int:student_id>', views.internship_search_view, name='internships'),
+    path('internships/apply/<int:internship_id>/<int:student_id>', views.apply_to_internship, name="internship-apply")
 
 ]
 

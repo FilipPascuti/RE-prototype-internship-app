@@ -20,15 +20,29 @@
                 <th scope="col">Role</th>
                 <th scope="col">Description</th>
                 <th scope="col">Date posted</th>
+                <th scope="col">Apply</th>
             </tr>
             </thead>
 
             <tbody>
-            {% for internship in internships_list %}
+            {% for internship, applied in internships_list %}
                 <tr>
                     <td>{{ internship.role_name }}</td>
                     <td>{{ internship.description }}</td>
                     <td>{{ internship.date_posted }}</td>
+                    <td>
+                        {% if applied == True %}
+                            <button disabled type="button" class="btn btn-primary m-2" style="float: right">
+                                <a href="{% url 'internship-apply' internship.id user.student.id %}"
+                                   class="link">Apply</a>
+                            </button>
+                        {% else %}
+                            <button  type="button" class="btn btn-primary m-2" style="float: right">
+                                <a href="{% url 'internship-apply' internship.id user.student.id %}"
+                                   class="link">Apply</a>
+                            </button>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

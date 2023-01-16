@@ -18,7 +18,7 @@
                     </button>
 
                     <button type="button" class="btn btn-primary m-2">
-                        <a href="internships" class="link">See the available internships</a>
+                        <a href="{% url 'internships' user.student.id %}" class="link">See the available internships</a>
                     </button>
                 </div>
             {% else %}
@@ -34,6 +34,10 @@
 
                     <button type="button" class="btn btn-primary m-2">
                         <a href="{% url 'edit-company' user.company.id %}" class="link">Edit company details</a>
+                    </button>
+
+                    <button type="button" class="btn btn-primary m-2">
+                        <a href="{% url 'company-applicants' user.company.id %}" class="link">See applications</a>
                     </button>
                 </div>
 
